@@ -25,5 +25,5 @@ To run the project follow instructions below:
 ```simple_proj```
 
 ## Deinstallation
-- Run command from the project diretory (might require sudo)
+- Run the command from the project directory (might require sudo)
 ```sudo make clean-all```
