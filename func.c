@@ -39,7 +39,7 @@ int division_func()
 {
     printf ("\n\nEnter two numbers.\n"); 
     int n1, n2 = get_numbers_from_user(2);  
-    if (n2 == 0) { printf("\nZero division error.\n"); }
+    if (n2 == 0) { printf("\nZero division error.\n");  exit(1); }
     int result_ = n1 / n2;
     printf("\nDivision of %d and %d is: %d\n", n1, n2, result_);
     return 0; 
@@ -58,7 +58,8 @@ long fuctorial_func()
 double square_root_func()  
 {
     printf ("\n\nEnter a number to calculate its square root\n"); 
-    int n1 = get_numbers_from_user(1);  
+    int n1 = get_numbers_from_user(1);
+    if (n1 < 0) { printf("\nCannot get square root of negative number.\n");  exit(1); }
     double result_ = sqrt(n1);
     printf("\Square root of %d is: %d\n", n1, result_);
     return 0; 
