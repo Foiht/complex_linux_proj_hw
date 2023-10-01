@@ -1,18 +1,29 @@
-CC = gcc
-OBJS = main.o func.o
-DEPS = header.h
+ALERTS = -Wall -Werror -Wextra
 
-main: $(OBJS)
-	$(CC) -o simple_proj $^
+all: text_formatter calculator
 
-main.o: main.c $(DEPS)
-	$(CC) -c $^
+calculator: lib_culc_objects lib_culc_static
+	gcc calc.c libcalc.a -lm -o calculator $(ALERTS)
 
-func.o: func.c $(DEPS)
-	$(CC) -c $^
+lib_culc_static: 
+	ar -rcs libcalc.a addition.o division.o fuctorial.o multiplication.o square_root.o subtraction.o
 
-clean_extras:
-	rm -rf *.o *.h.gch
+lib_culc_objects: 
+	gcc -c addition.c division.c fuctorial.c multiplication.c square_root.c subtraction.c $(ALERTS)
+
+text_formatter: lib_formatter_objects lib_formatter_shared lib_formatter_move
+	gcc text_formatter.c -lformatter -o text_formatter $(ALERTS)
+
+lib_formatter_move:
+	sudo cp libformatter.so /usr/lib
+	sudo chmod 0755 /usr/lib/libformatter.so
+
+lib_formatter_shared:
+	gcc -shared -o libformatter.so uper.o low.o $(ALERTS)
+
+lib_formatter_objects:
+	gcc -fpic -c uper.c low.c $(ALERTS)
 
 clean_all:
-	rm -rf *.o *.h.gch main
+	@rm -rf *.o *.a *.so *.h.gch main
+	@sudo rm /usr/lib/libformatter.so
